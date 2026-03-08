@@ -13,8 +13,7 @@ export default function Home() {
       </h1>
 
       <p style={{ fontSize: "20px", marginBottom: "30px" }}>
-        Fresh pasties, espresso drinks, cinnamon rolls, and baked goods in
-        L&apos;Anse, Michigan.
+        Fresh pasties, espresso drinks, cinnamon rolls, and baked goods in L&apos;Anse, Michigan.
       </p>
 
       <section style={{ marginBottom: "30px" }}>
@@ -38,7 +37,9 @@ export default function Home() {
 
       <section style={{ marginBottom: "30px" }}>
         <h2>Hours</h2>
-        <p style={{ fontSize: "18px" }}>Open daily - Hours can be updated here</p>
+        <p style={{ fontSize: "18px" }}>
+          Open daily - Hours can be updated here
+        </p>
       </section>
 
       <button
@@ -56,6 +57,4 @@ export default function Home() {
       </button>
     </main>
   );
-}
-
 }
