@@ -40,21 +40,24 @@ export default function Home() {
         <p style={{ fontSize: "18px" }}>
           Open daily - Hours can be updated here
         </p>
-      </section>
+      </section><a
+  href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I%20would%20like%20to%20place%20an%20order."
+  style={{
+    display: "inline-block",
+    backgroundColor: "#7a4b2a",
+    color: "white",
+    textDecoration: "none",
+    border: "none",
+    padding: "14px 24px",
+    fontSize: "18px",
+    borderRadius: "8px",
+    cursor: "pointer",
+  }}
+>
+  Start Your Order
+</a>
 
-      <button
-        style={{
-          backgroundColor: "#7a4b2a",
-          color: "white",
-          border: "none",
-          padding: "14px 24px",
-          fontSize: "18px",
-          borderRadius: "8px",
-          cursor: "pointer",
-        }}
-      >
-        Start Your Order
-      </button>
+      
     </main>
   );
 }
