@@ -166,12 +166,14 @@ export default function Home() {
       <section style={{ marginTop: "35px", marginBottom: "20px" }}>
         <h2 style={{ fontSize: "24px", marginBottom: "10px" }}><h2 style={sectionTitle}>Frapps (16 oz)</h2>
 
+<h2 style={sectionTitle}>Frapps (16 oz)</h2>
+
 <a
   href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%2016oz%20Mocha%20Frapp."
   style={sizeButtonStyle}
 >
   <span>Mocha Frapp</span>
-  <span>16 oz</span>
+  <span>$6.00</span>
 </a>
 
 <a
@@ -179,7 +181,7 @@ export default function Home() {
   style={sizeButtonStyle}
 >
   <span>Caramel Frapp</span>
-  <span>16 oz</span>
+  <span>$6.00</span>
 </a>
 
 <a
@@ -187,12 +189,5 @@ export default function Home() {
   style={sizeButtonStyle}
 >
   <span>Vanilla Frapp</span>
-  <span>16 oz</span>
-</a>Order by Text</h2>
-        <p style={{ fontSize: "18px", color: "#444" }}>
-          Tap any size above to text your order to <strong>906-370-4846</strong>
-        </p>
-      </section>
-    </main>
-  );
-}
+  <span>$6.00</span>
+</a>
