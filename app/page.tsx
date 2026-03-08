@@ -163,7 +163,7 @@ export default function Home() {
         <span>$5.00</span>
       </a>
 
-     <h2 style={sectionTitle}>Frapps (All 16 oz)</h2>
+    <h2 style={sectionTitle}>Frapps (All 16 oz)</h2>
 
 <a
   href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20a%2016oz%20Mocha%20Frapp."
