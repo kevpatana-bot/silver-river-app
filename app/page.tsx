@@ -1,10 +1,20 @@
 export default function Home() {
   return (
-    <main style={{ fontFamily: "Arial, sans-serif", padding: "40px", maxWidth: "900px", margin: "0 auto" }}>
-      <h1 style={{ fontSize: "42px", marginBottom: "10px" }}>Silver River Bakery</h1>
+    <main
+      style={{
+        fontFamily: "Arial, sans-serif",
+        padding: "40px",
+        maxWidth: "900px",
+        margin: "0 auto",
+      }}
+    >
+      <h1 style={{ fontSize: "42px", marginBottom: "10px" }}>
+        Silver River Bakery
+      </h1>
 
       <p style={{ fontSize: "20px", marginBottom: "30px" }}>
-        Fresh pasties, espresso drinks, cinnamon rolls, and baked goods in L&apos;Anse, Michigan.
+        Fresh pasties, espresso drinks, cinnamon rolls, and baked goods in
+        L&apos;Anse, Michigan.
       </p>
 
       <section style={{ marginBottom: "30px" }}>
@@ -28,9 +38,7 @@ export default function Home() {
 
       <section style={{ marginBottom: "30px" }}>
         <h2>Hours</h2>
-        <p style={{ fontSize: "18px" }}>
-          Open daily - Hours can be updated here
-        </p>
+        <p style={{ fontSize: "18px" }}>Open daily - Hours can be updated here</p>
       </section>
 
       <button
@@ -41,11 +49,13 @@ export default function Home() {
           padding: "14px 24px",
           fontSize: "18px",
           borderRadius: "8px",
-          cursor: "pointer"
+          cursor: "pointer",
         }}
       >
         Start Your Order
       </button>
     </main>
   );
+}
+
 }
