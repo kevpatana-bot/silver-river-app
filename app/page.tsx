@@ -1,5 +1,5 @@
 export default function Home() {
-  const buttonStyle = {
+  const sizeButtonStyle = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -20,11 +20,12 @@ export default function Home() {
     color: "#7a4b2a",
   } as const;
 
-  const itemTitle = {
-    fontSize: "20px",
+  const drinkTitle = {
+    fontSize: "22px",
     fontWeight: "bold",
-    marginTop: "20px",
-    marginBottom: "8px",
+    marginTop: "24px",
+    marginBottom: "10px",
+    color: "#333",
   } as const;
 
   return (
@@ -42,197 +43,154 @@ export default function Home() {
       </h1>
 
       <p style={{ fontSize: "20px", marginBottom: "25px", color: "#444" }}>
-        Tap a drink below to start a text order
+        Choose your drink size below to text your order
       </p>
 
-      <h2 style={sectionTitle}>Hot Drinks</h2>
+      <h2 style={sectionTitle}>Espresso Menu</h2>
 
-      <div style={itemTitle}>Latte</div>
+      <div style={drinkTitle}>Latte</div>
       <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%20Small%20Latte."
-        style={buttonStyle}
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I%27d%20like%20to%20order%20a%20Small%20Latte."
+        style={sizeButtonStyle}
       >
         <span>Small Latte</span>
         <span>$4.50</span>
       </a>
       <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%20Medium%20Latte."
-        style={buttonStyle}
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I%27d%20like%20to%20order%20a%20Medium%20Latte."
+        style={sizeButtonStyle}
       >
         <span>Medium Latte</span>
         <span>$5.00</span>
       </a>
       <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%20Large%20Latte."
-        style={buttonStyle}
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I%27d%20like%20to%20order%20a%20Large%20Latte."
+        style={sizeButtonStyle}
       >
         <span>Large Latte</span>
         <span>$5.50</span>
       </a>
 
-      <div style={itemTitle}>Mocha</div>
+      <div style={drinkTitle}>Mocha</div>
       <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%20Small%20Mocha."
-        style={buttonStyle}
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I%27d%20like%20to%20order%20a%20Small%20Mocha."
+        style={sizeButtonStyle}
       >
         <span>Small Mocha</span>
         <span>$5.00</span>
       </a>
       <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%20Medium%20Mocha."
-        style={buttonStyle}
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I%27d%20like%20to%20order%20a%20Medium%20Mocha."
+        style={sizeButtonStyle}
       >
         <span>Medium Mocha</span>
         <span>$5.50</span>
       </a>
       <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%20Large%20Mocha."
-        style={buttonStyle}
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I%27d%20like%20to%20order%20a%20Large%20Mocha."
+        style={sizeButtonStyle}
       >
         <span>Large Mocha</span>
         <span>$6.00</span>
       </a>
 
-      <div style={itemTitle}>Cappuccino</div>
+      <div style={drinkTitle}>Cappuccino</div>
       <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%20Small%20Cappuccino."
-        style={buttonStyle}
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I%27d%20like%20to%20order%20a%20Small%20Cappuccino."
+        style={sizeButtonStyle}
       >
         <span>Small Cappuccino</span>
         <span>$4.50</span>
       </a>
       <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%20Medium%20Cappuccino."
-        style={buttonStyle}
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I%27d%20like%20to%20order%20a%20Medium%20Cappuccino."
+        style={sizeButtonStyle}
       >
         <span>Medium Cappuccino</span>
         <span>$5.00</span>
       </a>
       <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%20Large%20Cappuccino."
-        style={buttonStyle}
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I%27d%20like%20to%20order%20a%20Large%20Cappuccino."
+        style={sizeButtonStyle}
       >
         <span>Large Cappuccino</span>
         <span>$5.50</span>
       </a>
 
-      <div style={itemTitle}>Americano</div>
+      <div style={drinkTitle}>Americano</div>
       <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%20Small%20Americano."
-        style={buttonStyle}
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I%27d%20like%20to%20order%20a%20Small%20Americano."
+        style={sizeButtonStyle}
       >
         <span>Small Americano</span>
         <span>$3.50</span>
       </a>
       <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%20Medium%20Americano."
-        style={buttonStyle}
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I%27d%20like%20to%20order%20a%20Medium%20Americano."
+        style={sizeButtonStyle}
       >
         <span>Medium Americano</span>
         <span>$4.00</span>
       </a>
       <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%20Large%20Americano."
-        style={buttonStyle}
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I%27d%20like%20to%20order%20a%20Large%20Americano."
+        style={sizeButtonStyle}
       >
         <span>Large Americano</span>
         <span>$4.50</span>
       </a>
 
-      <h2 style={sectionTitle}>Iced Drinks</h2>
-
-      <div style={itemTitle}>Iced Latte</div>
+      <div style={drinkTitle}>Cold Brew</div>
       <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%20Small%20Iced%20Latte."
-        style={buttonStyle}
-      >
-        <span>Small Iced Latte</span>
-        <span>$4.75</span>
-      </a>
-      <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%20Medium%20Iced%20Latte."
-        style={buttonStyle}
-      >
-        <span>Medium Iced Latte</span>
-        <span>$5.25</span>
-      </a>
-      <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%20Large%20Iced%20Latte."
-        style={buttonStyle}
-      >
-        <span>Large Iced Latte</span>
-        <span>$5.75</span>
-      </a>
-
-      <div style={itemTitle}>Cold Brew</div>
-      <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%20Small%20Cold%20Brew."
-        style={buttonStyle}
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I%27d%20like%20to%20order%20a%20Small%20Cold%20Brew."
+        style={sizeButtonStyle}
       >
         <span>Small Cold Brew</span>
         <span>$4.00</span>
       </a>
       <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%20Medium%20Cold%20Brew."
-        style={buttonStyle}
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I%27d%20like%20to%20order%20a%20Medium%20Cold%20Brew."
+        style={sizeButtonStyle}
       >
         <span>Medium Cold Brew</span>
         <span>$4.50</span>
       </a>
       <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%20Large%20Cold%20Brew."
-        style={buttonStyle}
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I%27d%20like%20to%20order%20a%20Large%20Cold%20Brew."
+        style={sizeButtonStyle}
       >
         <span>Large Cold Brew</span>
         <span>$5.00</span>
       </a>
 
-      <h2 style={sectionTitle}>Flavor Add-Ons</h2>
-
-      <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20Please%20add%20Vanilla%20to%20my%20drink."
-        style={buttonStyle}
-      >
-        <span>Vanilla</span>
-        <span>+$0.75</span>
-      </a>
-
-      <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20Please%20add%20Caramel%20to%20my%20drink."
-        style={buttonStyle}
-      >
-        <span>Caramel</span>
-        <span>+$0.75</span>
-      </a>
-
-      <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20Please%20add%20Hazelnut%20to%20my%20drink."
-        style={buttonStyle}
-      >
-        <span>Hazelnut</span>
-        <span>+$0.75</span>
-      </a>
-
-      <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20Please%20add%20White%20Chocolate%20to%20my%20drink."
-        style={buttonStyle}
-      >
-        <span>White Chocolate</span>
-        <span>+$0.75</span>
-      </a>
-
-      <a
-        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20Please%20add%20an%20Extra%20Shot%20to%20my%20drink."
-        style={buttonStyle}
-      >
-        <span>Extra Shot</span>
-        <span>+$1.00</span>
-      </a>
-
       <section style={{ marginTop: "35px", marginBottom: "20px" }}>
-        <h2 style={{ fontSize: "24px", marginBottom: "10px" }}>Order by Text</h2>
+        <h2 style={{ fontSize: "24px", marginBottom: "10px" }}><h2 style={sectionTitle}>Frapps (16 oz)</h2>
+
+<a
+  href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%2016oz%20Mocha%20Frapp."
+  style={sizeButtonStyle}
+>
+  <span>Mocha Frapp</span>
+  <span>16 oz</span>
+</a>
+
+<a
+  href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%2016oz%20Caramel%20Frapp."
+  style={sizeButtonStyle}
+>
+  <span>Caramel Frapp</span>
+  <span>16 oz</span>
+</a>
+
+<a
+  href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%2016oz%20Vanilla%20Frapp."
+  style={sizeButtonStyle}
+>
+  <span>Vanilla Frapp</span>
+  <span>16 oz</span>
+</a>Order by Text</h2>
         <p style={{ fontSize: "18px", color: "#444" }}>
-          Text your order to <strong>906-370-4846</strong>
+          Tap any size above to text your order to <strong>906-370-4846</strong>
         </p>
       </section>
     </main>
