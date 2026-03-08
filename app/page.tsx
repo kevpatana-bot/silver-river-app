@@ -163,13 +163,10 @@ export default function Home() {
         <span>$5.00</span>
       </a>
 
-      <section style={{ marginTop: "35px", marginBottom: "20px" }}>
-        <h2 style={{ fontSize: "24px", marginBottom: "10px" }}><h2 style={sectionTitle}>Frapps (16 oz)</h2>
-
-<h2 style={sectionTitle}>Frapps (16 oz)</h2>
+     <h2 style={sectionTitle}>Frapps (All 16 oz)</h2>
 
 <a
-  href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%2016oz%20Mocha%20Frapp."
+  href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20a%2016oz%20Mocha%20Frapp."
   style={sizeButtonStyle}
 >
   <span>Mocha Frapp</span>
@@ -177,7 +174,7 @@ export default function Home() {
 </a>
 
 <a
-  href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%2016oz%20Caramel%20Frapp."
+  href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20a%2016oz%20Caramel%20Frapp."
   style={sizeButtonStyle}
 >
   <span>Caramel Frapp</span>
@@ -185,9 +182,25 @@ export default function Home() {
 </a>
 
 <a
-  href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20to%20order%20a%2016oz%20Vanilla%20Frapp."
+  href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20a%2016oz%20Vanilla%20Frapp."
   style={sizeButtonStyle}
 >
   <span>Vanilla Frapp</span>
+  <span>$6.00</span>
+</a>
+
+<a
+  href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20a%2016oz%20Hazelnut%20Frapp."
+  style={sizeButtonStyle}
+>
+  <span>Hazelnut Frapp</span>
+  <span>$6.00</span>
+</a>
+
+<a
+  href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20I'd%20like%20a%2016oz%20White%20Chocolate%20Frapp."
+  style={sizeButtonStyle}
+>
+  <span>White Chocolate Frapp</span>
   <span>$6.00</span>
 </a>
