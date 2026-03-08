@@ -187,6 +187,48 @@ export default function Home() {
         <span>$5.00</span>
       </a>
 
+      <h2 style={sectionTitle}>Flavor Add-Ons</h2>
+
+      <a
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20Please%20add%20Vanilla%20to%20my%20drink."
+        style={buttonStyle}
+      >
+        <span>Vanilla</span>
+        <span>+$0.75</span>
+      </a>
+
+      <a
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20Please%20add%20Caramel%20to%20my%20drink."
+        style={buttonStyle}
+      >
+        <span>Caramel</span>
+        <span>+$0.75</span>
+      </a>
+
+      <a
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20Please%20add%20Hazelnut%20to%20my%20drink."
+        style={buttonStyle}
+      >
+        <span>Hazelnut</span>
+        <span>+$0.75</span>
+      </a>
+
+      <a
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20Please%20add%20White%20Chocolate%20to%20my%20drink."
+        style={buttonStyle}
+      >
+        <span>White Chocolate</span>
+        <span>+$0.75</span>
+      </a>
+
+      <a
+        href="sms:19063704846?body=Hi%20Silver%20River%20Bakery!%20Please%20add%20an%20Extra%20Shot%20to%20my%20drink."
+        style={buttonStyle}
+      >
+        <span>Extra Shot</span>
+        <span>+$1.00</span>
+      </a>
+
       <section style={{ marginTop: "35px", marginBottom: "20px" }}>
         <h2 style={{ fontSize: "24px", marginBottom: "10px" }}>Order by Text</h2>
         <p style={{ fontSize: "18px", color: "#444" }}>
