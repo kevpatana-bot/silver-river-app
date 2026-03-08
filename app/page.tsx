@@ -16,17 +16,21 @@ export default function Home() {
         Fresh pasties, espresso drinks, cinnamon rolls, and baked goods in L&apos;Anse, Michigan.
       </p>
 
-      <section style={{ marginBottom: "30px" }}>
-        <h2>Popular Items</h2>
-        <ul style={{ lineHeight: "2", fontSize: "18px" }}>
-          <li>Beef Pasty</li>
-          <li>Chicken Pasty</li>
-          <li>Cinnamon Roll</li>
-          <li>Latte</li>
-          <li>Mocha</li>
-          <li>Cold Brew</li>
-        </ul>
-      </section>
+     <section style={{ marginBottom: "30px" }}>
+  <h2>Espresso Menu</h2>
+  <ul style={{ lineHeight: "2", fontSize: "18px", listStyle: "none", padding: 0 }}>
+    <li>Espresso - $3.00</li>
+    <li>Americano - $3.50</li>
+    <li>Latte - $4.50</li>
+    <li>Cappuccino - $4.50</li>
+    <li>Mocha - $5.00</li>
+    <li>Caramel Macchiato - $5.25</li>
+    <li>Vanilla Latte - $5.00</li>
+    <li>White Chocolate Mocha - $5.25</li>
+    <li>Cold Brew - $4.00</li>
+    <li>Iced Latte - $4.75</li>
+  </ul>
+</section>
 
       <section style={{ marginBottom: "30px" }}>
         <h2>Order by Text</h2>
