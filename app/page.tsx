@@ -57,7 +57,17 @@ export default function Home() {
 
     return `Hi Silver River Bakery! I'd like to place an order:%0A%0A${lines.join(
       "%0A"
-    )}%0A%0ATotal: $${total.toFixed(2)}`;
+    )}%0A%0ATotal: $<div style={{ marginTop: "10px" }}>
+  Subtotal: ${total.toFixed(2)}
+</div>
+
+<div>
+  Tax (6%): ${tax.toFixed(2)}
+</div>
+
+<div style={{ fontWeight: "bold", marginTop: "5px" }}>
+  Total: ${(total + tax).toFixed(2)}
+</div>;
   }, [orderItems, total]);
 
   const menuButtonStyle = {
