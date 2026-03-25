@@ -208,27 +208,40 @@ export default function Home() {
       <h2 style={sectionTitle}>Hot Drinks</h2>
 
       <div style={itemTitle}>Latte</div>
-
-<button onClick={() => addItem("Regular Latte", 5.35)} style={menuButtonStyle}>
-  <span>Regular Latte</span>
-  <span>$5.35</span>
-</button>
-
-<button onClick={() => addItem("Large Latte", 6.65)} style={menuButtonStyle}>
-  <span>Large Latte</span>
-  <span>$6.65</span>
-</button>
+      <button
+        onClick={() => addItem("Regular Latte", 5.35)}
+        style={menuButtonStyle}
+      >
+        <span>Regular Latte</span>
+        <span>$5.35</span>
+      </button>
+      <button
+        onClick={() => addItem("Large Latte", 6.65)}
+        style={menuButtonStyle}
+      >
+        <span>Large Latte</span>
+        <span>$6.65</span>
+      </button>
 
       <div style={itemTitle}>Mocha</div>
-      <button onClick={() => addItem("Small Mocha", 5.0)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Small Mocha", 5.0)}
+        style={menuButtonStyle}
+      >
         <span>Small Mocha</span>
         <span>$5.00</span>
       </button>
-      <button onClick={() => addItem("Medium Mocha", 5.5)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Medium Mocha", 5.5)}
+        style={menuButtonStyle}
+      >
         <span>Medium Mocha</span>
         <span>$5.50</span>
       </button>
-      <button onClick={() => addItem("Large Mocha", 6.0)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Large Mocha", 6.0)}
+        style={menuButtonStyle}
+      >
         <span>Large Mocha</span>
         <span>$6.00</span>
       </button>
@@ -252,21 +265,33 @@ export default function Home() {
       </button>
 
       <div style={itemTitle}>Matcha</div>
-      <button onClick={() => addItem("Regular Matcha", 5.0)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Regular Matcha", 5.0)}
+        style={menuButtonStyle}
+      >
         <span>Regular Matcha</span>
         <span>$5.00</span>
       </button>
-      <button onClick={() => addItem("Large Matcha", 6.0)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Large Matcha", 6.0)}
+        style={menuButtonStyle}
+      >
         <span>Large Matcha</span>
         <span>$6.00</span>
       </button>
 
       <div style={itemTitle}>Chai</div>
-      <button onClick={() => addItem("Regular Chai", 4.35)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Regular Chai", 4.35)}
+        style={menuButtonStyle}
+      >
         <span>Regular Chai</span>
         <span>$4.35</span>
       </button>
-      <button onClick={() => addItem("Large Chai", 5.65)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Large Chai", 5.65)}
+        style={menuButtonStyle}
+      >
         <span>Large Chai</span>
         <span>$5.65</span>
       </button>
@@ -274,46 +299,73 @@ export default function Home() {
       <h2 style={sectionTitle}>Cold Drinks</h2>
 
       <div style={itemTitle}>Iced Tea</div>
-      <button onClick={() => addItem("Regular Iced Tea", 3.95)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Regular Iced Tea", 3.95)}
+        style={menuButtonStyle}
+      >
         <span>Regular Iced Tea</span>
         <span>$3.95</span>
       </button>
-      <button onClick={() => addItem("Large Iced Tea", 4.25)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Large Iced Tea", 4.25)}
+        style={menuButtonStyle}
+      >
         <span>Large Iced Tea</span>
         <span>$4.25</span>
       </button>
 
       <div style={itemTitle}>Iced Coffee</div>
-      <button onClick={() => addItem("Regular Iced Coffee", 3.95)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Regular Iced Coffee", 3.95)}
+        style={menuButtonStyle}
+      >
         <span>Regular Iced Coffee</span>
         <span>$3.95</span>
       </button>
-      <button onClick={() => addItem("Large Iced Coffee", 4.25)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Large Iced Coffee", 4.25)}
+        style={menuButtonStyle}
+      >
         <span>Large Iced Coffee</span>
         <span>$4.25</span>
       </button>
 
       <div style={itemTitle}>Lemonade</div>
-      <button onClick={() => addItem("Regular Lemonade", 3.75)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Regular Lemonade", 3.75)}
+        style={menuButtonStyle}
+      >
         <span>Regular Lemonade</span>
         <span>$3.75</span>
       </button>
-      <button onClick={() => addItem("Large Lemonade", 4.25)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Large Lemonade", 4.25)}
+        style={menuButtonStyle}
+      >
         <span>Large Lemonade</span>
         <span>$4.25</span>
       </button>
 
       <h2 style={sectionTitle}>Frapps</h2>
 
-      <button onClick={() => addItem("Mocha Frapp", 6.75)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Mocha Frapp", 6.75)}
+        style={menuButtonStyle}
+      >
         <span>Mocha Frapp</span>
         <span>$6.75</span>
       </button>
-      <button onClick={() => addItem("Caramel Frapp", 6.75)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Caramel Frapp", 6.75)}
+        style={menuButtonStyle}
+      >
         <span>Caramel Frapp</span>
         <span>$6.75</span>
       </button>
-      <button onClick={() => addItem("Vanilla Frapp", 6.75)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Vanilla Frapp", 6.75)}
+        style={menuButtonStyle}
+      >
         <span>Vanilla Frapp</span>
         <span>$6.75</span>
       </button>
