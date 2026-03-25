@@ -57,7 +57,7 @@ export default function Home() {
 
     return `Hi Silver River Bakery! I'd like to place an order:%0A%0A${lines.join(
       "%0A"
-    )}%0A%0ATotal: $<div style={{ marginTop: "10px" }}>
+    )}%0A%0ASubtotal: $${total.toFixed(2)}%0ATax (6%): $${tax.toFixed(2)}%0ATotal: $${(total + tax).toFixed(2)}<div style={{ marginTop: "10px" }}>
   Subtotal: ${total.toFixed(2)}
 </div>
 
