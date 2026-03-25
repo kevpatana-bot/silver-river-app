@@ -7,27 +7,36 @@ type OrderItem = {
   price: number;
   milk: string;
 };
+
 export default function Home() {
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
 
   const addItem = (name: string, price: number) => {
-  setOrderItems((prev) => [...prev, { name, price, milk: "Regular" }]);
-};
+    setOrderItems((prev) => [...prev, { name, price, milk: "Regular" }]);
+  };
+
   const removeItem = (index: number) => {
     setOrderItems((prev) => prev.filter((_, i) => i !== index));
   };
+
   const updateMilk = (index: number, milk: string) => {
-  setOrderItems((prev) =>
-    prev.map((item, i) => (i === index ? { ...item, milk } : item))
-  );
-};
+    setOrderItems((prev) =>
+      prev.map((item, i) => (i === index ? { ...item, milk } : item))
+    );
+  };
 
   const clearOrder = () => {
     setOrderItems([]);
   };
 
   const total = useMemo(() => {
-    return orderItems.reduce((sum, item) => sum + item.price, 0);
+    return orderItems.reduce(
+      (sum, item) =>
+        sum +
+        item.price +
+        (item.milk === "Oat Milk" || item.milk === "Almond" ? 0.75 : 0),
+      0
+    );
   }, [orderItems]);
 
   const textMessage = useMemo(() => {
@@ -35,221 +44,20 @@ export default function Home() {
       return "Hi Silver River Bakery! I'd like to place an order.";
     }
 
-    );
+    const lines = orderItems.map((item, index) => {
+      const itemTotal =
+        item.price +
+        (item.milk === "Oat Milk" || item.milk === "Almond" ? 0.75 : 0);
+
+      return `${index + 1}. ${item.name} (${item.milk}) - $${itemTotal.toFixed(
+        2
+      )}`;
+    });
 
     return `Hi Silver River Bakery! I'd like to place an order:%0A%0A${lines.join(
       "%0A"
     )}%0A%0ATotal: $${total.toFixed(2)}`;
   }, [orderItems, total]);
-{orderItems.length === 0 ? (
-  <p>No items added yet.</p>
-) : (
-  <div>
-    {orderItems.length === 0 ? (
-  <p>No items added yet.</p>
-) : (
-  <div>
-    {orderItems.map((item, index) => (
-      <div
-        key={index}
-        style={{
-          marginBottom: "16px",
-          paddingBottom: "10px",
-          borderBottom: "1px solid #eee",
-        }}
-      >
-        <div>
-          {item.name} - ${item.price.toFixed(2)}
-        </div>
-
-        <div style={{ marginTop: "6px" }}><button
-  onClick={() => updateMilk(index, "Regular")}
-  style={{
-    background: item.milk === "Regular" ? "#fbbf24" : "#fff",
-    border: "1px solid #ccc",
-    marginRight: "5px",
-    padding: "4px 8px",
-  }}
->
-  Regular
-</button>
-
-<button
-  onClick={() => updateMilk(index, "Oat Milk")}
-  style={{
-    background: item.milk === "Oat Milk" ? "#fbbf24" : "#fff",
-    border: "1px solid #ccc",
-    marginRight: "5px",
-    padding: "4px 8px",
-  }}
->
-  Oat Milk (+0.75)
-</button>
-
-<button
-  onClick={() => updateMilk(index, "Almond")}
-  style={{
-    background: item.milk === "Almond" ? "#fbbf24" : "#fff",
-    border: "1px solid #ccc",
-    marginRight: "5px",
-    padding: "4px 8px",
-  }}
->
-  Almond (+0.75)
-</button>
-          <button
-            onClick={() => updateMilk(index, "Regular")}
-            style={{
-              background: item.milk === "Regular" ? "#fbbf24" : "#fff",
-              border: "1px solid #ccc",
-              marginRight: "5px",
-              padding: "4px 8px",
-            }}
-          >
-            Regular
-          </button>
-
-          <button
-            onClick={() => updateMilk(index, "Oat Milk")}
-            style={{
-              background: item.milk === "Oat Milk" ? "#fbbf24" : "#fff",
-              border: "1px solid #ccc",
-              marginRight: "5px",
-              padding: "4px 8px",
-            }}
-          >
-            Oat Milk (+0.75)
-          </button>
-
-          <button
-            onClick={() => updateMilk(index, "Almond")}
-            style={{
-              background: item.milk === "Almond" ? "#fbbf24" : "#fff",
-              border: "1px solid #ccc",
-              marginRight: "5px",
-              padding: "4px 8px",
-            }}
-          >
-            Almond (+0.75)
-          </button>
-        </div>
-
-        <div style={{ color: "#666", marginTop: "4px" }}>
-          Milk: {item.milk}
-        </div>
-
-        <button onClick={() => removeItem(index)} style={removeButton}>
-          Remove
-        </button>
-      </div>
-    ))}
-
-    <div style={{ marginTop: "10px" }}>
-      Total: ${total.toFixed(2)}
-    </div>
-  </div>
-)}
-      >
-        <div>
-          {item.name} - ${item.price.toFixed(2)}
-        </div>
-
-        <div style={{ marginTop: "6px" }}>
-          <button
-            onClick={() => updateMilk(index, "Regular")}
-            style={{
-              background: item.milk === "Regular" ? "#fbbf24" : "#fff",
-              border: "1px solid #ccc",
-              marginRight: "5px",
-              padding: "4px 8px",
-            }}
-          >
-            Regular
-          </button>
-
-          <button
-            onClick={() => updateMilk(index, "Oat Milk")}
-            style={{
-              background: item.milk === "Oat Milk" ? "#fbbf24" : "#fff",
-              border: "1px solid #ccc",
-              marginRight: "5px",
-              padding: "4px 8px",
-            }}
-          >
-            Oat Milk (+0.75)
-          </button>
-
-          <button
-            onClick={() => updateMilk(index, "Almond")}
-            style={{
-              background: item.milk === "Almond" ? "#fbbf24" : "#fff",
-              border: "1px solid #ccc",
-              marginRight: "5px",
-              padding: "4px 8px",
-            }}
-          >
-            Almond (+0.75)
-          </button>
-        </div>
-
-        <div style={{ color: "#666", marginTop: "4px" }}>
-          Milk: {item.milk}
-        </div>
-
-        <button onClick={() => removeItem(index)} style={removeButton}>
-          Remove
-        </button>
-      </div>
-    ))}
-
-    <div style={{ marginTop: "10px" }}>
-      Total: ${total.toFixed(2)}
-    </div>
-  </div>
-)}
-  <div>
-    <div style={{ marginTop: "6px" }}>
-  <button
-    onClick={() => updateMilk(index, "Regular")}
-    style={{
-      background: item.milk === "Regular" ? "#fbbf24" : "#fff",
-      border: "1px solid #ccc",
-      marginRight: "5px",
-      padding: "4px 8px",
-    }}
-  >
-    Regular
-  </button>
-
-  <button
-    onClick={() => updateMilk(index, "Oat Milk")}
-    style={{
-      background: item.milk === "Oat Milk" ? "#fbbf24" : "#fff",
-      border: "1px solid #ccc",
-      marginRight: "5px",
-      padding: "4px 8px",
-    }}
-  >
-    Oat Milk (+0.75)
-  </button>
-
-  <button
-    onClick={() => updateMilk(index, "Almond")}
-    style={{
-      background: item.milk === "Almond" ? "#fbbf24" : "#fff",
-      border: "1px solid #ccc",
-      marginRight: "5px",
-      padding: "4px 8px",
-    }}
-  >
-    Almond (+0.75)
-  </button>
-</div>
-
-<div style={{ color: "#666", marginTop: "4px" }}>
-  Milk: {item.milk}
-</div>
-)}
 
   const menuButtonStyle = {
     display: "flex",
@@ -354,14 +162,72 @@ export default function Home() {
         <p>No items added yet.</p>
       ) : (
         <div>
-          {orderItems.map((item, index) => (
-            <div key={index} style={{ marginBottom: "10px" }}>
-              {item.name} - ${item.price.toFixed(2)}
-              <button onClick={() => removeItem(index)} style={removeButton}>
-                Remove
-              </button>
-            </div>
-          ))}
+          {orderItems.map((item, index) => {
+            const itemTotal =
+              item.price +
+              (item.milk === "Oat Milk" || item.milk === "Almond" ? 0.75 : 0);
+
+            return (
+              <div
+                key={index}
+                style={{
+                  marginBottom: "16px",
+                  paddingBottom: "10px",
+                  borderBottom: "1px solid #eee",
+                }}
+              >
+                <div>
+                  {item.name} - ${itemTotal.toFixed(2)}
+                </div>
+
+                <div style={{ marginTop: "6px" }}>
+                  <button
+                    onClick={() => updateMilk(index, "Regular")}
+                    style={{
+                      background: item.milk === "Regular" ? "#fbbf24" : "#fff",
+                      border: "1px solid #ccc",
+                      marginRight: "5px",
+                      padding: "4px 8px",
+                    }}
+                  >
+                    Regular
+                  </button>
+
+                  <button
+                    onClick={() => updateMilk(index, "Oat Milk")}
+                    style={{
+                      background: item.milk === "Oat Milk" ? "#fbbf24" : "#fff",
+                      border: "1px solid #ccc",
+                      marginRight: "5px",
+                      padding: "4px 8px",
+                    }}
+                  >
+                    Oat Milk (+0.75)
+                  </button>
+
+                  <button
+                    onClick={() => updateMilk(index, "Almond")}
+                    style={{
+                      background: item.milk === "Almond" ? "#fbbf24" : "#fff",
+                      border: "1px solid #ccc",
+                      marginRight: "5px",
+                      padding: "4px 8px",
+                    }}
+                  >
+                    Almond (+0.75)
+                  </button>
+                </div>
+
+                <div style={{ color: "#666", marginTop: "4px" }}>
+                  Milk: {item.milk}
+                </div>
+
+                <button onClick={() => removeItem(index)} style={removeButton}>
+                  Remove
+                </button>
+              </div>
+            );
+          })}
 
           <div style={{ marginTop: "10px" }}>
             Total: ${total.toFixed(2)}
@@ -381,4 +247,3 @@ export default function Home() {
     </main>
   );
 }
-   
