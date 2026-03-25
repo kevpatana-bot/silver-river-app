@@ -30,6 +30,7 @@ export default function Home() {
   };
 
   const total = useMemo(() => {
+    const tax = useMemo(() => total * 0.06, [total]);
     return orderItems.reduce(
       (sum, item) =>
         sum +
