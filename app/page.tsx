@@ -16,6 +16,11 @@ export default function Home() {
   const removeItem = (index: number) => {
     setOrderItems((prev) => prev.filter((_, i) => i !== index));
   };
+  const updateMilk = (index: number, milk: string) => {
+  setOrderItems((prev) =>
+    prev.map((item, i) => (i === index ? { ...item, milk } : item))
+  );
+};
 
   const clearOrder = () => {
     setOrderItems([]);
