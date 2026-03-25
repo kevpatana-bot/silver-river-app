@@ -5,8 +5,8 @@ import { useMemo, useState } from "react";
 type OrderItem = {
   name: string;
   price: number;
+  milk: string;
 };
-
 export default function Home() {
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
 
