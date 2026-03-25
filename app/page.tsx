@@ -68,7 +68,11 @@ export default function Home() {
 ))}
         <div key={index} style={{ marginBottom: 20 }}>
           <div>
-            {item.name} - ${item.price.toFixed(2)}
+            {item.name} - $
+{(
+  item.price +
+  (item.milk === "Oat Milk" || item.milk === "Almond" ? 0.75 : 0)
+).toFixed(2)}
           </div>
 
           <div style={{ marginTop: 8, marginBottom: 8 }}>
