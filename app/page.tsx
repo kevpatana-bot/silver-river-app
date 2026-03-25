@@ -2,17 +2,30 @@
 
 import { useMemo, useState } from "react";
 
+type SyrupOption = "None" | "Vanilla" | "Caramel" | "Coconut" | "Hazelnut";
+
 type OrderItem = {
   name: string;
   price: number;
   milk: string;
+  extraShot: boolean;
+  frappSyrup: SyrupOption;
 };
 
 export default function Home() {
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
 
   const addItem = (name: string, price: number) => {
-    setOrderItems((prev) => [...prev, { name, price, milk: "Regular" }]);
+    setOrderItems((prev) => [
+      ...prev,
+      {
+        name,
+        price,
+        milk: "Regular",
+        extraShot: false,
+        frappSyrup: "None",
+      },
+    ]);
   };
 
   const removeItem = (index: number) => {
@@ -25,18 +38,59 @@ export default function Home() {
     );
   };
 
+  const updateExtraShot = (index: number, extraShot: boolean) => {
+    setOrderItems((prev) =>
+      prev.map((item, i) => (i === index ? { ...item, extraShot } : item))
+    );
+  };
+
+  const updateFrappSyrup = (index: number, frappSyrup: SyrupOption) => {
+    setOrderItems((prev) =>
+      prev.map((item, i) => (i === index ? { ...item, frappSyrup } : item))
+    );
+  };
+
   const clearOrder = () => {
     setOrderItems([]);
   };
 
-  const subtotal = useMemo(() => {
-    return orderItems.reduce(
-      (sum, item) =>
-        sum +
-        item.price +
-        (item.milk === "Oat Milk" || item.milk === "Almond" ? 0.75 : 0),
-      0
+  const isFrapp = (name: string) => name.toLowerCase().includes("frapp");
+
+  const supportsMilk = (name: string) => {
+    const lower = name.toLowerCase();
+    return (
+      lower.includes("latte") ||
+      lower.includes("mocha") ||
+      lower.includes("cappuccino") ||
+      lower.includes("cortado") ||
+      lower.includes("matcha") ||
+      lower.includes("chai") ||
+      lower.includes("frapp")
     );
+  };
+
+  const supportsExtraShot = (name: string) => {
+    const lower = name.toLowerCase();
+    return (
+      lower.includes("latte") ||
+      lower.includes("mocha") ||
+      lower.includes("cappuccino") ||
+      lower.includes("americano") ||
+      lower.includes("cortado")
+    );
+  };
+
+  const getItemTotal = (item: OrderItem) => {
+    const milkUpcharge =
+      item.milk === "Oat Milk" || item.milk === "Almond" ? 0.75 : 0;
+    const shotUpcharge = item.extraShot ? 1.75 : 0;
+    const syrupUpcharge = item.frappSyrup !== "None" ? 0.5 : 0;
+
+    return item.price + milkUpcharge + shotUpcharge + syrupUpcharge;
+  };
+
+  const subtotal = useMemo(() => {
+    return orderItems.reduce((sum, item) => sum + getItemTotal(item), 0);
   }, [orderItems]);
 
   const tax = useMemo(() => subtotal * 0.06, [subtotal]);
@@ -49,13 +103,23 @@ export default function Home() {
     }
 
     const lines = orderItems.map((item, index) => {
-      const itemTotal =
-        item.price +
-        (item.milk === "Oat Milk" || item.milk === "Almond" ? 0.75 : 0);
+      const details: string[] = [];
 
-      return `${index + 1}. ${item.name} (${item.milk}) - $${itemTotal.toFixed(
-        2
-      )}`;
+      if (supportsMilk(item.name)) {
+        details.push(item.milk);
+      }
+
+      if (supportsExtraShot(item.name) && item.extraShot) {
+        details.push("Extra Shot");
+      }
+
+      if (isFrapp(item.name) && item.frappSyrup !== "None") {
+        details.push(`${item.frappSyrup} Syrup`);
+      }
+
+      const detailText = details.length ? ` (${details.join(", ")})` : "";
+
+      return `${index + 1}. ${item.name}${detailText} - $${getItemTotal(item).toFixed(2)}`;
     });
 
     return `Hi Silver River Bakery! I'd like to place an order:%0A%0A${lines.join(
@@ -119,11 +183,12 @@ export default function Home() {
     marginTop: "8px",
   } as const;
 
-  const milkButtonStyle = (selected: boolean) =>
+  const optionButtonStyle = (selected: boolean) =>
     ({
       background: selected ? "#fbbf24" : "#fff",
       border: "1px solid #ccc",
       marginRight: "5px",
+      marginTop: "5px",
       padding: "4px 8px",
       borderRadius: "6px",
       cursor: "pointer",
@@ -143,66 +208,116 @@ export default function Home() {
       <h2 style={sectionTitle}>Hot Drinks</h2>
 
       <div style={itemTitle}>Latte</div>
-      <button
-        onClick={() => addItem("Small Latte", 4.5)}
-        style={menuButtonStyle}
-      >
+      <button onClick={() => addItem("Small Latte", 4.5)} style={menuButtonStyle}>
         <span>Small Latte</span>
         <span>$4.50</span>
       </button>
-      <button
-        onClick={() => addItem("Medium Latte", 5.0)}
-        style={menuButtonStyle}
-      >
+      <button onClick={() => addItem("Medium Latte", 5.0)} style={menuButtonStyle}>
         <span>Medium Latte</span>
         <span>$5.00</span>
       </button>
-      <button
-        onClick={() => addItem("Large Latte", 5.5)}
-        style={menuButtonStyle}
-      >
+      <button onClick={() => addItem("Large Latte", 5.5)} style={menuButtonStyle}>
         <span>Large Latte</span>
         <span>$5.50</span>
       </button>
 
       <div style={itemTitle}>Mocha</div>
-      <button
-        onClick={() => addItem("Small Mocha", 5.0)}
-        style={menuButtonStyle}
-      >
+      <button onClick={() => addItem("Small Mocha", 5.0)} style={menuButtonStyle}>
         <span>Small Mocha</span>
         <span>$5.00</span>
       </button>
-      <button
-        onClick={() => addItem("Medium Mocha", 5.5)}
-        style={menuButtonStyle}
-      >
+      <button onClick={() => addItem("Medium Mocha", 5.5)} style={menuButtonStyle}>
         <span>Medium Mocha</span>
         <span>$5.50</span>
       </button>
-      <button
-        onClick={() => addItem("Large Mocha", 6.0)}
-        style={menuButtonStyle}
-      >
+      <button onClick={() => addItem("Large Mocha", 6.0)} style={menuButtonStyle}>
         <span>Large Mocha</span>
         <span>$6.00</span>
       </button>
 
-      <h2 style={sectionTitle}>Frapps (16 oz)</h2>
+      <div style={itemTitle}>Cappuccino</div>
+      <button onClick={() => addItem("Cappuccino", 4.35)} style={menuButtonStyle}>
+        <span>Cappuccino</span>
+        <span>$4.35</span>
+      </button>
 
-      <button
-        onClick={() => addItem("Mocha Frapp", 6.0)}
-        style={menuButtonStyle}
-      >
-        <span>Mocha Frapp</span>
+      <div style={itemTitle}>Americano</div>
+      <button onClick={() => addItem("Americano", 3.5)} style={menuButtonStyle}>
+        <span>Americano</span>
+        <span>$3.50</span>
+      </button>
+
+      <div style={itemTitle}>Cortado</div>
+      <button onClick={() => addItem("Cortado", 4.35)} style={menuButtonStyle}>
+        <span>Cortado</span>
+        <span>$4.35</span>
+      </button>
+
+      <div style={itemTitle}>Matcha</div>
+      <button onClick={() => addItem("Regular Matcha", 5.0)} style={menuButtonStyle}>
+        <span>Regular Matcha</span>
+        <span>$5.00</span>
+      </button>
+      <button onClick={() => addItem("Large Matcha", 6.0)} style={menuButtonStyle}>
+        <span>Large Matcha</span>
         <span>$6.00</span>
       </button>
-      <button
-        onClick={() => addItem("Caramel Frapp", 6.0)}
-        style={menuButtonStyle}
-      >
+
+      <div style={itemTitle}>Chai</div>
+      <button onClick={() => addItem("Regular Chai", 4.35)} style={menuButtonStyle}>
+        <span>Regular Chai</span>
+        <span>$4.35</span>
+      </button>
+      <button onClick={() => addItem("Large Chai", 5.65)} style={menuButtonStyle}>
+        <span>Large Chai</span>
+        <span>$5.65</span>
+      </button>
+
+      <h2 style={sectionTitle}>Cold Drinks</h2>
+
+      <div style={itemTitle}>Iced Tea</div>
+      <button onClick={() => addItem("Regular Iced Tea", 3.95)} style={menuButtonStyle}>
+        <span>Regular Iced Tea</span>
+        <span>$3.95</span>
+      </button>
+      <button onClick={() => addItem("Large Iced Tea", 4.25)} style={menuButtonStyle}>
+        <span>Large Iced Tea</span>
+        <span>$4.25</span>
+      </button>
+
+      <div style={itemTitle}>Iced Coffee</div>
+      <button onClick={() => addItem("Regular Iced Coffee", 3.95)} style={menuButtonStyle}>
+        <span>Regular Iced Coffee</span>
+        <span>$3.95</span>
+      </button>
+      <button onClick={() => addItem("Large Iced Coffee", 4.25)} style={menuButtonStyle}>
+        <span>Large Iced Coffee</span>
+        <span>$4.25</span>
+      </button>
+
+      <div style={itemTitle}>Lemonade</div>
+      <button onClick={() => addItem("Regular Lemonade", 3.75)} style={menuButtonStyle}>
+        <span>Regular Lemonade</span>
+        <span>$3.75</span>
+      </button>
+      <button onClick={() => addItem("Large Lemonade", 4.25)} style={menuButtonStyle}>
+        <span>Large Lemonade</span>
+        <span>$4.25</span>
+      </button>
+
+      <h2 style={sectionTitle}>Frapps</h2>
+
+      <button onClick={() => addItem("Mocha Frapp", 6.75)} style={menuButtonStyle}>
+        <span>Mocha Frapp</span>
+        <span>$6.75</span>
+      </button>
+      <button onClick={() => addItem("Caramel Frapp", 6.75)} style={menuButtonStyle}>
         <span>Caramel Frapp</span>
-        <span>$6.00</span>
+        <span>$6.75</span>
+      </button>
+      <button onClick={() => addItem("Vanilla Frapp", 6.75)} style={menuButtonStyle}>
+        <span>Vanilla Frapp</span>
+        <span>$6.75</span>
       </button>
 
       <h2 style={sectionTitle}>Your Order</h2>
@@ -211,57 +326,114 @@ export default function Home() {
         <p>No items added yet.</p>
       ) : (
         <div>
-          {orderItems.map((item, index) => {
-            const itemTotal =
-              item.price +
-              (item.milk === "Oat Milk" || item.milk === "Almond" ? 0.75 : 0);
+          {orderItems.map((item, index) => (
+            <div
+              key={index}
+              style={{
+                marginBottom: "16px",
+                paddingBottom: "10px",
+                borderBottom: "1px solid #eee",
+              }}
+            >
+              <div>
+                {item.name} - ${getItemTotal(item).toFixed(2)}
+              </div>
 
-            return (
-              <div
-                key={index}
-                style={{
-                  marginBottom: "16px",
-                  paddingBottom: "10px",
-                  borderBottom: "1px solid #eee",
-                }}
-              >
-                <div>
-                  {item.name} - ${itemTotal.toFixed(2)}
-                </div>
-
+              {supportsMilk(item.name) && (
                 <div style={{ marginTop: "6px" }}>
                   <button
                     onClick={() => updateMilk(index, "Regular")}
-                    style={milkButtonStyle(item.milk === "Regular")}
+                    style={optionButtonStyle(item.milk === "Regular")}
                   >
                     Regular
                   </button>
 
                   <button
                     onClick={() => updateMilk(index, "Oat Milk")}
-                    style={milkButtonStyle(item.milk === "Oat Milk")}
+                    style={optionButtonStyle(item.milk === "Oat Milk")}
                   >
                     Oat Milk (+0.75)
                   </button>
 
                   <button
                     onClick={() => updateMilk(index, "Almond")}
-                    style={milkButtonStyle(item.milk === "Almond")}
+                    style={optionButtonStyle(item.milk === "Almond")}
                   >
                     Almond (+0.75)
                   </button>
-                </div>
 
-                <div style={{ color: "#666", marginTop: "4px" }}>
-                  Milk: {item.milk}
+                  <div style={{ color: "#666", marginTop: "4px" }}>
+                    Milk: {item.milk}
+                  </div>
                 </div>
+              )}
 
-                <button onClick={() => removeItem(index)} style={removeButton}>
-                  Remove
-                </button>
-              </div>
-            );
-          })}
+              {supportsExtraShot(item.name) && (
+                <div style={{ marginTop: "8px" }}>
+                  <button
+                    onClick={() => updateExtraShot(index, false)}
+                    style={optionButtonStyle(!item.extraShot)}
+                  >
+                    No Extra Shot
+                  </button>
+
+                  <button
+                    onClick={() => updateExtraShot(index, true)}
+                    style={optionButtonStyle(item.extraShot)}
+                  >
+                    Extra Shot (+1.75)
+                  </button>
+                </div>
+              )}
+
+              {isFrapp(item.name) && (
+                <div style={{ marginTop: "8px" }}>
+                  <div style={{ color: "#666", marginBottom: "4px" }}>
+                    Frapp Syrup
+                  </div>
+
+                  <button
+                    onClick={() => updateFrappSyrup(index, "None")}
+                    style={optionButtonStyle(item.frappSyrup === "None")}
+                  >
+                    None
+                  </button>
+                  <button
+                    onClick={() => updateFrappSyrup(index, "Vanilla")}
+                    style={optionButtonStyle(item.frappSyrup === "Vanilla")}
+                  >
+                    Vanilla (+0.50)
+                  </button>
+                  <button
+                    onClick={() => updateFrappSyrup(index, "Caramel")}
+                    style={optionButtonStyle(item.frappSyrup === "Caramel")}
+                  >
+                    Caramel (+0.50)
+                  </button>
+                  <button
+                    onClick={() => updateFrappSyrup(index, "Coconut")}
+                    style={optionButtonStyle(item.frappSyrup === "Coconut")}
+                  >
+                    Coconut (+0.50)
+                  </button>
+                  <button
+                    onClick={() => updateFrappSyrup(index, "Hazelnut")}
+                    style={optionButtonStyle(item.frappSyrup === "Hazelnut")}
+                  >
+                    Hazelnut (+0.50)
+                  </button>
+
+                  <div style={{ color: "#666", marginTop: "4px" }}>
+                    Syrup: {item.frappSyrup}
+                  </div>
+                </div>
+              )}
+
+              <button onClick={() => removeItem(index)} style={removeButton}>
+                Remove
+              </button>
+            </div>
+          ))}
 
           <div style={{ marginTop: "10px" }}>
             Subtotal: ${subtotal.toFixed(2)}
