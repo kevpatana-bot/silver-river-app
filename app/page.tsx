@@ -11,9 +11,8 @@ export default function Home() {
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
 
   const addItem = (name: string, price: number) => {
-    setOrderItems((prev) => [...prev, { name, price }]);
-  };
-
+  setOrderItems((prev) => [...prev, { name, price, milk: "Regular" }]);
+};
   const removeItem = (index: number) => {
     setOrderItems((prev) => prev.filter((_, i) => i !== index));
   };
