@@ -205,7 +205,7 @@ export default function Home() {
     >
       <h1>Silver River Bakery</h1>
 
-      <h2 style={sectionTitle}>Hot Drinks</h2>
+      <h2 style={sectionTitle}> Drinks</h2>
 
      
       <div style={itemTitle}>Latte</div>
@@ -223,13 +223,23 @@ export default function Home() {
   <span>Large Latte</span>
   <span>$6.65</span>
 </button>
-      <button
-        onClick={() => addItem("Large Mocha", 6.0)}
-        style={menuButtonStyle}
-      >
-        <span>Large Mocha</span>
-        <span>$6.00</span>
-      </button>
+      <div style={itemTitle}>Mocha</div>
+
+<button
+  onClick={() => addItem("Regular Mocha", 5.35)}
+  style={menuButtonStyle}
+>
+  <span>Regular Mocha</span>
+  <span>$5.35</span>
+</button>
+
+<button
+  onClick={() => addItem("Large Mocha", 6.65)}
+  style={menuButtonStyle}
+>
+  <span>Large Mocha</span>
+  <span>$6.65</span>
+</button>
 
       <div style={itemTitle}>Cappuccino</div>
       <button onClick={() => addItem("Cappuccino", 4.35)} style={menuButtonStyle}>
