@@ -22,7 +22,13 @@ export default function Home() {
     setOrderItems([]);
   };
 
-  const total = useMemo(() => {
+  const subtotal = useMemo(() => {
+  return orderItems.reduce((sum, item) => sum + item.price, 0);
+}, [orderItems]);
+
+const tax = subtotal * 0.06;
+
+const total = subtotal + tax;
     return orderItems.reduce((sum, item) => sum + item.price, 0);
   }, [orderItems]);
 

@@ -1,0 +1,90 @@
+import { NextResponse } from "next/server";
+import twilio from "twilio";
+
+const client = twilio(
+  process.env.TWILIO_SID,
+  process.env.TWILIO_TOKEN
+);
+
+export async function POST(req: Request) {
+  const body = await req.json();
+
+  const message = `
+Silver River Bakery Order
+
+Name: ${body.name}
+Phone: ${body.phone}
+Pickup: ${body.pickup}
+Drink: ${body.drink}
+Size: ${body.size}
+Instructions: ${body.instructions}
+`;
+
+  await client.messages.create({
+    body: message,
+    from: process.env.TWILIO_PHONE,
+    to: "9063704845",
+  });
+
+  return NextResponse.json({ success: true });
+}
+
+mkdir -p app/api/send-order
+nano app/api/send-order/route.ts
+mkdir -p app/api/send-order
+nano app/api/send-order/route.ts
+import { NextResponse } from "next/server";
+import twilio from "twilio";
+
+const client = twilio(
+  process.env.TWILIO_SID,
+  process.env.TWILIO_TOKEN
+);
+
+export async function POST(req: Request) {
+  const body = await req.json();
+
+  const message = `
+Silver River Bakery Order
+
+Name: ${body.name}
+Phone: ${body.phone}
+Pickup: ${body.pickup}
+Drink: ${body.drink}
+Size: ${body.size}
+Instructions: ${body.instructions}
+`;
+
+  await client.messages.create({
+    body: message,
+    from: process.env.TWILIO_PHONE,
+    to: "9063704845",
+  });
+
+  return NextResponse.json({ success: true });
+}
+
+npm install twilio
+npm install twilio
+npm list twilio
+cd ~/silver-river-app
+npm install twilio
+cd ~/silver-river-app
+clear
+cd ~/silver-river-app
+npm install twilio
+kevinpatana@Mac silver-river-app %
+npm install twilio
+npm install twilio
+pwd
+pwd
+which npm
+echo $PATH
+kevinpatana@Mac silver-river-app %
+d ~/silver-river-app
+npm install twilio
+one command
+npm install twilio
+kevinpatana@Mac silver-river-app %
+npm install twilio
+
