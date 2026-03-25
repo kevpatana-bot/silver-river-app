@@ -77,14 +77,16 @@ export default function Home() {
 
           <div style={{ marginTop: 8, marginBottom: 8 }}>
             <button onClick={() => updateMilk(index, "Regular")}>
-              Regular
-            </button>{" "}
-            <button onClick={() => updateMilk(index, "Oat Milk")}>
-              Oat Milk
-            </button>{" "}
-            <button onClick={() => updateMilk(index, "Almond")}>
-              Almond
-            </button>
+  Regular
+</button>
+
+<button onClick={() => updateMilk(index, "Oat Milk")}>
+  Oat Milk (+0.75)
+</button>
+
+<button onClick={() => updateMilk(index, "Almond")}>
+  Almond (+0.75)
+</button>
           </div>
 
           <div>Milk: {item.milk}</div>
