@@ -42,6 +42,30 @@ export default function Home() {
       <h2>Your Order</h2>
 
       {orderItems.map((item, index) => (
+  <div key={index} style={{ marginBottom: 20 }}>
+    <div>
+      {item.name} - ${item.price.toFixed(2)}
+    </div>
+
+    <div style={{ marginTop: 8 }}>
+      <button onClick={() => updateMilk(index, "Regular")}>
+        Regular
+      </button>{" "}
+      <button onClick={() => updateMilk(index, "Oat Milk")}>
+        Oat Milk
+      </button>{" "}
+      <button onClick={() => updateMilk(index, "Almond")}>
+        Almond
+      </button>
+    </div>
+
+    <div>Milk: {item.milk}</div>
+
+    <button onClick={() => removeItem(index)}>
+      Remove
+    </button>
+  </div>
+))}
         <div key={index} style={{ marginBottom: 20 }}>
           <div>
             {item.name} - ${item.price.toFixed(2)}
