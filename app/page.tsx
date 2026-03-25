@@ -48,15 +48,32 @@ export default function Home() {
     </div>
 
     <div style={{ marginTop: 8 }}>
-      <button onClick={() => updateMilk(index, "Regular")}>
-        Regular
+     <button
+  onClick={() => updateMilk(index, "Regular")}
+  style={{
+    background: item.milk === "Regular" ? "#fbbf24" : "#fff",
+    border: "1px solid #ccc",
+    marginRight: "5px",
+    padding: "4px 8px",
+  }}
+>
+  Regular
+</button>
       </button>{" "}
       <button onClick={() => updateMilk(index, "Oat Milk")}>
         Oat Milk
       </button>{" "}
-      <button onClick={() => updateMilk(index, "Almond")}>
-        Almond
-      </button>
+      <button
+  onClick={() => updateMilk(index, "Regular")}
+  style={{
+    background: item.milk === "Regular" ? "#fbbf24" : "#fff",
+    border: "1px solid #ccc",
+    marginRight: "5px",
+    padding: "4px 8px",
+  }}
+>
+  Regular
+</button>
     </div>
 
     <div>Milk: {item.milk}</div>
@@ -80,10 +97,17 @@ export default function Home() {
   Regular
 </button>
 
-<button onClick={() => updateMilk(index, "Oat Milk")}>
-  Oat Milk (+0.75)
+<button
+  onClick={() => updateMilk(index, "Regular")}
+  style={{
+    background: item.milk === "Regular" ? "#fbbf24" : "#fff",
+    border: "1px solid #ccc",
+    marginRight: "5px",
+    padding: "4px 8px",
+  }}
+>
+  Regular
 </button>
-
 <button onClick={() => updateMilk(index, "Almond")}>
   Almond (+0.75)
 </button>
