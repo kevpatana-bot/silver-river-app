@@ -62,7 +62,41 @@ export default function Home() {
           {item.name} - ${item.price.toFixed(2)}
         </div>
 
-        <div style={{ marginTop: "6px" }}>
+        <div style={{ marginTop: "6px" }}><button
+  onClick={() => updateMilk(index, "Regular")}
+  style={{
+    background: item.milk === "Regular" ? "#fbbf24" : "#fff",
+    border: "1px solid #ccc",
+    marginRight: "5px",
+    padding: "4px 8px",
+  }}
+>
+  Regular
+</button>
+
+<button
+  onClick={() => updateMilk(index, "Oat Milk")}
+  style={{
+    background: item.milk === "Oat Milk" ? "#fbbf24" : "#fff",
+    border: "1px solid #ccc",
+    marginRight: "5px",
+    padding: "4px 8px",
+  }}
+>
+  Oat Milk (+0.75)
+</button>
+
+<button
+  onClick={() => updateMilk(index, "Almond")}
+  style={{
+    background: item.milk === "Almond" ? "#fbbf24" : "#fff",
+    border: "1px solid #ccc",
+    marginRight: "5px",
+    padding: "4px 8px",
+  }}
+>
+  Almond (+0.75)
+</button>
           <button
             onClick={() => updateMilk(index, "Regular")}
             style={{
