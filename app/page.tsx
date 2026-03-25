@@ -208,18 +208,16 @@ export default function Home() {
       <h2 style={sectionTitle}>Hot Drinks</h2>
 
       <div style={itemTitle}>Latte</div>
-      <button onClick={() => addItem("Small Latte", 4.5)} style={menuButtonStyle}>
-        <span>Small Latte</span>
-        <span>$4.50</span>
-      </button>
-      <button onClick={() => addItem("Medium Latte", 5.0)} style={menuButtonStyle}>
-        <span>Medium Latte</span>
-        <span>$5.00</span>
-      </button>
-      <button onClick={() => addItem("Large Latte", 5.5)} style={menuButtonStyle}>
-        <span>Large Latte</span>
-        <span>$5.50</span>
-      </button>
+
+<button onClick={() => addItem("Regular Latte", 5.35)} style={menuButtonStyle}>
+  <span>Regular Latte</span>
+  <span>$5.35</span>
+</button>
+
+<button onClick={() => addItem("Large Latte", 6.65)} style={menuButtonStyle}>
+  <span>Large Latte</span>
+  <span>$6.65</span>
+</button>
 
       <div style={itemTitle}>Mocha</div>
       <button onClick={() => addItem("Small Mocha", 5.0)} style={menuButtonStyle}>
