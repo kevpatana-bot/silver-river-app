@@ -29,8 +29,7 @@ export default function Home() {
     setOrderItems([]);
   };
 
-  const total = useMemo(() => {
-    const tax = useMemo(() => total * 0.06, [total]);
+  const subtotal = useMemo(() => {
     return orderItems.reduce(
       (sum, item) =>
         sum +
@@ -39,6 +38,10 @@ export default function Home() {
       0
     );
   }, [orderItems]);
+
+  const tax = useMemo(() => subtotal * 0.06, [subtotal]);
+
+  const finalTotal = useMemo(() => subtotal + tax, [subtotal, tax]);
 
   const textMessage = useMemo(() => {
     if (orderItems.length === 0) {
@@ -57,16 +60,10 @@ export default function Home() {
 
     return `Hi Silver River Bakery! I'd like to place an order:%0A%0A${lines.join(
       "%0A"
-)}%0A%0ASubtotal: $${total.toFixed(2)}%0ATax (6%): $${tax.toFixed(2)}%0ATotal: $${(total + tax).toFixed(2)}
-
-<div>
-  Tax (6%): ${tax.toFixed(2)}
-</div>
-
-<div style={{ fontWeight: "bold", marginTop: "5px" }}>
-  Total: ${(total + tax).toFixed(2)}
-</div>;
-  }, [orderItems, total]);
+    )}%0A%0ASubtotal: $${subtotal.toFixed(2)}%0ATax (6%): $${tax.toFixed(
+      2
+    )}%0ATotal: $${finalTotal.toFixed(2)}`;
+  }, [orderItems, subtotal, tax, finalTotal]);
 
   const menuButtonStyle = {
     display: "flex",
@@ -110,6 +107,7 @@ export default function Home() {
     fontSize: "18px",
     marginRight: "10px",
     marginTop: "10px",
+    textDecoration: "none",
   } as const;
 
   const removeButton = {
@@ -118,49 +116,91 @@ export default function Home() {
     borderRadius: "8px",
     padding: "6px 10px",
     cursor: "pointer",
+    marginTop: "8px",
   } as const;
 
+  const milkButtonStyle = (selected: boolean) =>
+    ({
+      background: selected ? "#fbbf24" : "#fff",
+      border: "1px solid #ccc",
+      marginRight: "5px",
+      padding: "4px 8px",
+      borderRadius: "6px",
+      cursor: "pointer",
+    } as const);
+
   return (
-    <main style={{ padding: "30px", maxWidth: "760px", margin: "0 auto" }}>
+    <main
+      style={{
+        padding: "30px",
+        maxWidth: "760px",
+        margin: "0 auto",
+        fontFamily: "Arial, sans-serif",
+      }}
+    >
       <h1>Silver River Bakery</h1>
 
       <h2 style={sectionTitle}>Hot Drinks</h2>
 
       <div style={itemTitle}>Latte</div>
-      <button onClick={() => addItem("Small Latte", 4.5)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Small Latte", 4.5)}
+        style={menuButtonStyle}
+      >
         <span>Small Latte</span>
         <span>$4.50</span>
       </button>
-      <button onClick={() => addItem("Medium Latte", 5.0)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Medium Latte", 5.0)}
+        style={menuButtonStyle}
+      >
         <span>Medium Latte</span>
         <span>$5.00</span>
       </button>
-      <button onClick={() => addItem("Large Latte", 5.5)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Large Latte", 5.5)}
+        style={menuButtonStyle}
+      >
         <span>Large Latte</span>
         <span>$5.50</span>
       </button>
 
       <div style={itemTitle}>Mocha</div>
-      <button onClick={() => addItem("Small Mocha", 5.0)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Small Mocha", 5.0)}
+        style={menuButtonStyle}
+      >
         <span>Small Mocha</span>
         <span>$5.00</span>
       </button>
-      <button onClick={() => addItem("Medium Mocha", 5.5)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Medium Mocha", 5.5)}
+        style={menuButtonStyle}
+      >
         <span>Medium Mocha</span>
         <span>$5.50</span>
       </button>
-      <button onClick={() => addItem("Large Mocha", 6.0)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Large Mocha", 6.0)}
+        style={menuButtonStyle}
+      >
         <span>Large Mocha</span>
         <span>$6.00</span>
       </button>
 
       <h2 style={sectionTitle}>Frapps (16 oz)</h2>
 
-      <button onClick={() => addItem("Mocha Frapp", 6.0)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Mocha Frapp", 6.0)}
+        style={menuButtonStyle}
+      >
         <span>Mocha Frapp</span>
         <span>$6.00</span>
       </button>
-      <button onClick={() => addItem("Caramel Frapp", 6.0)} style={menuButtonStyle}>
+      <button
+        onClick={() => addItem("Caramel Frapp", 6.0)}
+        style={menuButtonStyle}
+      >
         <span>Caramel Frapp</span>
         <span>$6.00</span>
       </button>
@@ -192,36 +232,21 @@ export default function Home() {
                 <div style={{ marginTop: "6px" }}>
                   <button
                     onClick={() => updateMilk(index, "Regular")}
-                    style={{
-                      background: item.milk === "Regular" ? "#fbbf24" : "#fff",
-                      border: "1px solid #ccc",
-                      marginRight: "5px",
-                      padding: "4px 8px",
-                    }}
+                    style={milkButtonStyle(item.milk === "Regular")}
                   >
                     Regular
                   </button>
 
                   <button
                     onClick={() => updateMilk(index, "Oat Milk")}
-                    style={{
-                      background: item.milk === "Oat Milk" ? "#fbbf24" : "#fff",
-                      border: "1px solid #ccc",
-                      marginRight: "5px",
-                      padding: "4px 8px",
-                    }}
+                    style={milkButtonStyle(item.milk === "Oat Milk")}
                   >
                     Oat Milk (+0.75)
                   </button>
 
                   <button
                     onClick={() => updateMilk(index, "Almond")}
-                    style={{
-                      background: item.milk === "Almond" ? "#fbbf24" : "#fff",
-                      border: "1px solid #ccc",
-                      marginRight: "5px",
-                      padding: "4px 8px",
-                    }}
+                    style={milkButtonStyle(item.milk === "Almond")}
                   >
                     Almond (+0.75)
                   </button>
@@ -239,7 +264,11 @@ export default function Home() {
           })}
 
           <div style={{ marginTop: "10px" }}>
-            Total: ${total.toFixed(2)}
+            Subtotal: ${subtotal.toFixed(2)}
+          </div>
+          <div>Tax (6%): ${tax.toFixed(2)}</div>
+          <div style={{ fontWeight: "bold", marginTop: "5px" }}>
+            Total: ${finalTotal.toFixed(2)}
           </div>
         </div>
       )}
