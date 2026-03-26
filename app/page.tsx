@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 type OrderItem = {
@@ -13,6 +14,11 @@ type MilkOption = {
   price: number;
 };
 
+type FlavorOption = {
+  name: string;
+  price: number;
+};
+
 const milkOptions: MilkOption[] = [
   { name: "Whole Milk", price: 0 },
   { name: "2% Milk", price: 0 },
@@ -22,19 +28,58 @@ const milkOptions: MilkOption[] = [
   { name: "Soy Milk", price: 0.75 },
 ];
 
+const latteFlavorOptions: FlavorOption[] = [
+  { name: "Vanilla", price: 0.5 },
+  { name: "Caramel", price: 0.5 },
+  { name: "Coconut", price: 0.5 },
+  { name: "Hazelnut", price: 0.5 },
+  { name: "Sugar Free Caramel", price: 0.5 },
+];
+
 export default function Home() {
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
   const [customerName, setCustomerName] = useState("");
   const [pickupTime, setPickupTime] = useState("");
   const [selectedMilk, setSelectedMilk] = useState<MilkOption>(milkOptions[0]);
+  const [selectedLatteFlavors, setSelectedLatteFlavors] = useState<string[]>([]);
 
-  const addItem = (drinkName: string, basePrice: number) => {
-    const finalName =
-      selectedMilk.price > 0
-        ? `${drinkName} - ${selectedMilk.name}`
-        : `${drinkName} - ${selectedMilk.name}`;
+  const toggleLatteFlavor = (flavorName: string) => {
+    setSelectedLatteFlavors((prev) =>
+      prev.includes(flavorName)
+        ? prev.filter((flavor) => flavor !== flavorName)
+        : [...prev, flavorName]
+    );
+  };
 
-    const finalPrice = basePrice + selectedMilk.price;
+  const addItem = (
+    drinkName: string,
+    basePrice: number,
+    options?: { allowMilk?: boolean; allowLatteFlavors?: boolean }
+  ) => {
+    const allowMilk = options?.allowMilk ?? true;
+    const allowLatteFlavors = options?.allowLatteFlavors ?? false;
+
+    const milkCharge = allowMilk ? selectedMilk.price : 0;
+    const milkText = allowMilk ? ` - ${selectedMilk.name}` : "";
+
+    const chosenFlavorObjects = allowLatteFlavors
+      ? latteFlavorOptions.filter((flavor) =>
+          selectedLatteFlavors.includes(flavor.name)
+        )
+      : [];
+
+    const flavorCharge = chosenFlavorObjects.reduce(
+      (sum, flavor) => sum + flavor.price,
+      0
+    );
+
+    const flavorText =
+      chosenFlavorObjects.length > 0
+        ? ` - Flavors: ${chosenFlavorObjects.map((f) => f.name).join(", ")}`
+        : "";
+
+    const finalName = `${drinkName}${milkText}${flavorText}`;
+    const finalPrice = basePrice + milkCharge + flavorCharge;
 
     setOrderItems((prev) => {
       const existing = prev.find((item) => item.name === finalName);
@@ -114,6 +159,17 @@ export default function Home() {
 
   return (
     <main style={pageStyle}>
+      <div style={logoWrapStyle}>
+        <Image
+          src="/logo.png"
+          alt="Silver River Bakery Logo"
+          width={180}
+          height={180}
+          style={logoStyle}
+          priority
+        />
+      </div>
+
       <h1 style={titleStyle}>Silver River Bakery</h1>
       <p style={subtitleStyle}>Order Your Drinks for Pickup</p>
 
@@ -158,10 +214,43 @@ export default function Home() {
       </div>
 
       <div style={sectionStyle}>
+        <h2 style={sectionTitle}>Latte Flavors</h2>
+        <p style={helperTextStyle}>These flavors apply to lattes only.</p>
+
+        {latteFlavorOptions.map((flavor) => (
+          <button
+            key={flavor.name}
+            onClick={() => toggleLatteFlavor(flavor.name)}
+            style={{
+              ...flavorButtonStyle,
+              backgroundColor: selectedLatteFlavors.includes(flavor.name)
+                ? "#d9d9d9"
+                : "#f8f8f8",
+            }}
+          >
+            <span>{flavor.name}</span>
+            <span>+$0.50</span>
+          </button>
+        ))}
+
+        <button
+          onClick={() => setSelectedLatteFlavors([])}
+          style={clearButtonStyle}
+        >
+          Clear Latte Flavors
+        </button>
+      </div>
+
+      <div style={sectionStyle}>
         <h2 style={sectionTitle}>Lattes</h2>
 
         <button
-          onClick={() => addItem("Regular Latte", 5.35)}
+          onClick={() =>
+            addItem("Regular Latte", 5.35, {
+              allowMilk: true,
+              allowLatteFlavors: true,
+            })
+          }
           style={menuButtonStyle}
         >
           <span>Regular Latte</span>
@@ -169,7 +258,12 @@ export default function Home() {
         </button>
 
         <button
-          onClick={() => addItem("Large Latte", 6.65)}
+          onClick={() =>
+            addItem("Large Latte", 6.65, {
+              allowMilk: true,
+              allowLatteFlavors: true,
+            })
+          }
           style={menuButtonStyle}
         >
           <span>Large Latte</span>
@@ -181,7 +275,12 @@ export default function Home() {
         <h2 style={sectionTitle}>Mochas</h2>
 
         <button
-          onClick={() => addItem("Regular Mocha", 5.35)}
+          onClick={() =>
+            addItem("Regular Mocha", 5.35, {
+              allowMilk: true,
+              allowLatteFlavors: false,
+            })
+          }
           style={menuButtonStyle}
         >
           <span>Regular Mocha</span>
@@ -189,7 +288,12 @@ export default function Home() {
         </button>
 
         <button
-          onClick={() => addItem("Large Mocha", 6.65)}
+          onClick={() =>
+            addItem("Large Mocha", 6.65, {
+              allowMilk: true,
+              allowLatteFlavors: false,
+            })
+          }
           style={menuButtonStyle}
         >
           <span>Large Mocha</span>
@@ -198,10 +302,45 @@ export default function Home() {
       </div>
 
       <div style={sectionStyle}>
+        <h2 style={sectionTitle}>Matcha</h2>
+
+        <button
+          onClick={() =>
+            addItem("Regular Matcha", 5.0, {
+              allowMilk: true,
+              allowLatteFlavors: false,
+            })
+          }
+          style={menuButtonStyle}
+        >
+          <span>Regular Matcha</span>
+          <span>$5.00</span>
+        </button>
+
+        <button
+          onClick={() =>
+            addItem("Large Matcha", 6.0, {
+              allowMilk: true,
+              allowLatteFlavors: false,
+            })
+          }
+          style={menuButtonStyle}
+        >
+          <span>Large Matcha</span>
+          <span>$6.00</span>
+        </button>
+      </div>
+
+      <div style={sectionStyle}>
         <h2 style={sectionTitle}>Americanos</h2>
 
         <button
-          onClick={() => addItem("Regular Americano", 3.75)}
+          onClick={() =>
+            addItem("Regular Americano", 3.75, {
+              allowMilk: false,
+              allowLatteFlavors: false,
+            })
+          }
           style={menuButtonStyle}
         >
           <span>Regular Americano</span>
@@ -209,7 +348,12 @@ export default function Home() {
         </button>
 
         <button
-          onClick={() => addItem("Large Americano", 4.75)}
+          onClick={() =>
+            addItem("Large Americano", 4.75, {
+              allowMilk: false,
+              allowLatteFlavors: false,
+            })
+          }
           style={menuButtonStyle}
         >
           <span>Large Americano</span>
@@ -221,7 +365,12 @@ export default function Home() {
         <h2 style={sectionTitle}>Cappuccinos</h2>
 
         <button
-          onClick={() => addItem("Regular Cappuccino", 4.95)}
+          onClick={() =>
+            addItem("Regular Cappuccino", 4.95, {
+              allowMilk: true,
+              allowLatteFlavors: false,
+            })
+          }
           style={menuButtonStyle}
         >
           <span>Regular Cappuccino</span>
@@ -229,7 +378,12 @@ export default function Home() {
         </button>
 
         <button
-          onClick={() => addItem("Large Cappuccino", 5.95)}
+          onClick={() =>
+            addItem("Large Cappuccino", 5.95, {
+              allowMilk: true,
+              allowLatteFlavors: false,
+            })
+          }
           style={menuButtonStyle}
         >
           <span>Large Cappuccino</span>
@@ -241,7 +395,12 @@ export default function Home() {
         <h2 style={sectionTitle}>Hot Chocolate</h2>
 
         <button
-          onClick={() => addItem("Regular Hot Chocolate", 3.50)}
+          onClick={() =>
+            addItem("Regular Hot Chocolate", 3.5, {
+              allowMilk: true,
+              allowLatteFlavors: false,
+            })
+          }
           style={menuButtonStyle}
         >
           <span>Regular Hot Chocolate</span>
@@ -249,7 +408,12 @@ export default function Home() {
         </button>
 
         <button
-          onClick={() => addItem("Large Hot Chocolate", 4.50)}
+          onClick={() =>
+            addItem("Large Hot Chocolate", 4.5, {
+              allowMilk: true,
+              allowLatteFlavors: false,
+            })
+          }
           style={menuButtonStyle}
         >
           <span>Large Hot Chocolate</span>
@@ -261,7 +425,12 @@ export default function Home() {
         <h2 style={sectionTitle}>Chai</h2>
 
         <button
-          onClick={() => addItem("Regular Chai", 4.95)}
+          onClick={() =>
+            addItem("Regular Chai", 4.95, {
+              allowMilk: true,
+              allowLatteFlavors: false,
+            })
+          }
           style={menuButtonStyle}
         >
           <span>Regular Chai</span>
@@ -269,7 +438,12 @@ export default function Home() {
         </button>
 
         <button
-          onClick={() => addItem("Large Chai", 5.95)}
+          onClick={() =>
+            addItem("Large Chai", 5.95, {
+              allowMilk: true,
+              allowLatteFlavors: false,
+            })
+          }
           style={menuButtonStyle}
         >
           <span>Large Chai</span>
@@ -281,7 +455,12 @@ export default function Home() {
         <h2 style={sectionTitle}>Frappes - 16 oz</h2>
 
         <button
-          onClick={() => addItem("Mocha Frappe 16 oz", 6.50)}
+          onClick={() =>
+            addItem("Mocha Frappe 16 oz", 6.5, {
+              allowMilk: false,
+              allowLatteFlavors: false,
+            })
+          }
           style={menuButtonStyle}
         >
           <span>Mocha Frappe 16 oz</span>
@@ -289,7 +468,12 @@ export default function Home() {
         </button>
 
         <button
-          onClick={() => addItem("Caramel Frappe 16 oz", 6.50)}
+          onClick={() =>
+            addItem("Caramel Frappe 16 oz", 6.5, {
+              allowMilk: false,
+              allowLatteFlavors: false,
+            })
+          }
           style={menuButtonStyle}
         >
           <span>Caramel Frappe 16 oz</span>
@@ -297,7 +481,12 @@ export default function Home() {
         </button>
 
         <button
-          onClick={() => addItem("Vanilla Frappe 16 oz", 6.50)}
+          onClick={() =>
+            addItem("Vanilla Frappe 16 oz", 6.5, {
+              allowMilk: false,
+              allowLatteFlavors: false,
+            })
+          }
           style={menuButtonStyle}
         >
           <span>Vanilla Frappe 16 oz</span>
@@ -314,9 +503,7 @@ export default function Home() {
           <>
             {orderItems.map((item) => (
               <div key={item.name} style={orderRowStyle}>
-                <div>
-                  {item.quantity} x {item.name}
-                </div>
+                <div>{item.quantity} x {item.name}</div>
 
                 <div style={orderRightStyle}>
                   <span>${(item.price * item.quantity).toFixed(2)}</span>
@@ -350,6 +537,17 @@ const pageStyle: React.CSSProperties = {
   margin: "0 auto",
   padding: "20px",
   fontFamily: "Arial, sans-serif",
+};
+
+const logoWrapStyle: React.CSSProperties = {
+  display: "flex",
+  justifyContent: "center",
+  marginBottom: "16px",
+};
+
+const logoStyle: React.CSSProperties = {
+  borderRadius: "16px",
+  objectFit: "contain",
 };
 
 const titleStyle: React.CSSProperties = {
@@ -415,6 +613,29 @@ const milkButtonStyle: React.CSSProperties = {
   marginBottom: "10px",
   borderRadius: "8px",
   border: "1px solid #ccc",
+  cursor: "pointer",
+  fontSize: "16px",
+};
+
+const flavorButtonStyle: React.CSSProperties = {
+  width: "100%",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: "12px",
+  marginBottom: "10px",
+  borderRadius: "8px",
+  border: "1px solid #ccc",
+  cursor: "pointer",
+  fontSize: "16px",
+};
+
+const clearButtonStyle: React.CSSProperties = {
+  width: "100%",
+  padding: "12px",
+  borderRadius: "8px",
+  border: "1px solid #ccc",
+  backgroundColor: "#efefef",
   cursor: "pointer",
   fontSize: "16px",
 };
