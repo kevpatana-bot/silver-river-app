@@ -16,6 +16,7 @@ export default function Home() {
   const addItem = (name: string, price: number) => {
     setOrderItems((prev) => {
       const existing = prev.find((item) => item.name === name);
+
       if (existing) {
         return prev.map((item) =>
           item.name === name
@@ -23,6 +24,7 @@ export default function Home() {
             : item
         );
       }
+
       return [...prev, { name, price, quantity: 1 }];
     });
   };
@@ -70,7 +72,9 @@ export default function Home() {
       "Items:",
       ...orderItems.map(
         (item) =>
-          `${item.quantity} x ${item.name} - $${(item.price * item.quantity).toFixed(2)}`
+          `${item.quantity} x ${item.name} - $${(
+            item.price * item.quantity
+          ).toFixed(2)}`
       ),
       "",
       `Subtotal: $${subtotal.toFixed(2)}`,
@@ -88,7 +92,7 @@ export default function Home() {
   return (
     <main style={pageStyle}>
       <h1 style={titleStyle}>Silver River Bakery</h1>
-      <p style={subtitleStyle}>Espresso Order App</p>
+      <p style={subtitleStyle}>Order Your Drinks for Pickup</p>
 
       <div style={sectionStyle}>
         <h2 style={sectionTitle}>Customer Info</h2>
@@ -151,6 +155,114 @@ export default function Home() {
       </div>
 
       <div style={sectionStyle}>
+        <h2 style={sectionTitle}>Americanos</h2>
+
+        <button
+          onClick={() => addItem("Regular Americano", 3.75)}
+          style={menuButtonStyle}
+        >
+          <span>Regular Americano</span>
+          <span>$3.75</span>
+        </button>
+
+        <button
+          onClick={() => addItem("Large Americano", 4.75)}
+          style={menuButtonStyle}
+        >
+          <span>Large Americano</span>
+          <span>$4.75</span>
+        </button>
+      </div>
+
+      <div style={sectionStyle}>
+        <h2 style={sectionTitle}>Cappuccinos</h2>
+
+        <button
+          onClick={() => addItem("Regular Cappuccino", 4.95)}
+          style={menuButtonStyle}
+        >
+          <span>Regular Cappuccino</span>
+          <span>$4.95</span>
+        </button>
+
+        <button
+          onClick={() => addItem("Large Cappuccino", 5.95)}
+          style={menuButtonStyle}
+        >
+          <span>Large Cappuccino</span>
+          <span>$5.95</span>
+        </button>
+      </div>
+
+      <div style={sectionStyle}>
+        <h2 style={sectionTitle}>Hot Chocolate</h2>
+
+        <button
+          onClick={() => addItem("Regular Hot Chocolate", 3.50)}
+          style={menuButtonStyle}
+        >
+          <span>Regular Hot Chocolate</span>
+          <span>$3.50</span>
+        </button>
+
+        <button
+          onClick={() => addItem("Large Hot Chocolate", 4.50)}
+          style={menuButtonStyle}
+        >
+          <span>Large Hot Chocolate</span>
+          <span>$4.50</span>
+        </button>
+      </div>
+
+      <div style={sectionStyle}>
+        <h2 style={sectionTitle}>Chai</h2>
+
+        <button
+          onClick={() => addItem("Regular Chai", 4.95)}
+          style={menuButtonStyle}
+        >
+          <span>Regular Chai</span>
+          <span>$4.95</span>
+        </button>
+
+        <button
+          onClick={() => addItem("Large Chai", 5.95)}
+          style={menuButtonStyle}
+        >
+          <span>Large Chai</span>
+          <span>$5.95</span>
+        </button>
+      </div>
+
+      <div style={sectionStyle}>
+        <h2 style={sectionTitle}>Frappes - 16 oz</h2>
+
+        <button
+          onClick={() => addItem("Mocha Frappe - 16 oz", 6.50)}
+          style={menuButtonStyle}
+        >
+          <span>Mocha Frappe - 16 oz</span>
+          <span>$6.50</span>
+        </button>
+
+        <button
+          onClick={() => addItem("Caramel Frappe - 16 oz", 6.50)}
+          style={menuButtonStyle}
+        >
+          <span>Caramel Frappe - 16 oz</span>
+          <span>$6.50</span>
+        </button>
+
+        <button
+          onClick={() => addItem("Vanilla Frappe - 16 oz", 6.50)}
+          style={menuButtonStyle}
+        >
+          <span>Vanilla Frappe - 16 oz</span>
+          <span>$6.50</span>
+        </button>
+      </div>
+
+      <div style={sectionStyle}>
         <h2 style={sectionTitle}>Order Summary</h2>
 
         {orderItems.length === 0 ? (
@@ -162,7 +274,7 @@ export default function Home() {
                 <div>
                   {item.quantity} x {item.name}
                 </div>
-                <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+                <div style={orderRightStyle}>
                   <span>${(item.price * item.quantity).toFixed(2)}</span>
                   <button
                     onClick={() => removeItem(item.name)}
@@ -174,12 +286,10 @@ export default function Home() {
               </div>
             ))}
 
-            <hr style={{ margin: "12px 0" }} />
+            <hr style={dividerStyle} />
             <p>Subtotal: ${subtotal.toFixed(2)}</p>
             <p>Tax (6%): ${tax.toFixed(2)}</p>
-            <p>
-              <strong>Total: ${total.toFixed(2)}</strong>
-            </p>
+            <p style={totalStyle}>Total: ${total.toFixed(2)}</p>
           </>
         )}
 
@@ -192,7 +302,7 @@ export default function Home() {
 }
 
 const pageStyle: React.CSSProperties = {
-  maxWidth: "600px",
+  maxWidth: "650px",
   margin: "0 auto",
   padding: "20px",
   fontFamily: "Arial, sans-serif",
@@ -210,10 +320,11 @@ const subtitleStyle: React.CSSProperties = {
 };
 
 const sectionStyle: React.CSSProperties = {
-  marginBottom: "24px",
+  marginBottom: "22px",
   padding: "16px",
   border: "1px solid #ddd",
   borderRadius: "10px",
+  backgroundColor: "#fff",
 };
 
 const sectionTitle: React.CSSProperties = {
@@ -234,6 +345,7 @@ const menuButtonStyle: React.CSSProperties = {
   width: "100%",
   display: "flex",
   justifyContent: "space-between",
+  alignItems: "center",
   padding: "12px",
   marginBottom: "10px",
   borderRadius: "8px",
@@ -248,6 +360,13 @@ const orderRowStyle: React.CSSProperties = {
   justifyContent: "space-between",
   alignItems: "center",
   marginBottom: "10px",
+  gap: "10px",
+};
+
+const orderRightStyle: React.CSSProperties = {
+  display: "flex",
+  alignItems: "center",
+  gap: "8px",
 };
 
 const removeButtonStyle: React.CSSProperties = {
@@ -256,6 +375,14 @@ const removeButtonStyle: React.CSSProperties = {
   border: "none",
   backgroundColor: "#ddd",
   cursor: "pointer",
+};
+
+const dividerStyle: React.CSSProperties = {
+  margin: "12px 0",
+};
+
+const totalStyle: React.CSSProperties = {
+  fontWeight: "bold",
 };
 
 const placeOrderButtonStyle: React.CSSProperties = {
