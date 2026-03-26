@@ -8,24 +8,46 @@ type OrderItem = {
   quantity: number;
 };
 
+type MilkOption = {
+  name: string;
+  price: number;
+};
+
+const milkOptions: MilkOption[] = [
+  { name: "Whole Milk", price: 0 },
+  { name: "2% Milk", price: 0 },
+  { name: "Skim Milk", price: 0 },
+  { name: "Almond Milk", price: 0.75 },
+  { name: "Oat Milk", price: 0.75 },
+  { name: "Soy Milk", price: 0.75 },
+];
+
 export default function Home() {
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
   const [customerName, setCustomerName] = useState("");
   const [pickupTime, setPickupTime] = useState("");
+  const [selectedMilk, setSelectedMilk] = useState<MilkOption>(milkOptions[0]);
 
-  const addItem = (name: string, price: number) => {
+  const addItem = (drinkName: string, basePrice: number) => {
+    const finalName =
+      selectedMilk.price > 0
+        ? `${drinkName} - ${selectedMilk.name}`
+        : `${drinkName} - ${selectedMilk.name}`;
+
+    const finalPrice = basePrice + selectedMilk.price;
+
     setOrderItems((prev) => {
-      const existing = prev.find((item) => item.name === name);
+      const existing = prev.find((item) => item.name === finalName);
 
       if (existing) {
         return prev.map((item) =>
-          item.name === name
+          item.name === finalName
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
 
-      return [...prev, { name, price, quantity: 1 }];
+      return [...prev, { name: finalName, price: finalPrice, quantity: 1 }];
     });
   };
 
@@ -45,6 +67,7 @@ export default function Home() {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+
   const tax = subtotal * 0.06;
   const total = subtotal + tax;
 
@@ -112,6 +135,26 @@ export default function Home() {
           onChange={(e) => setPickupTime(e.target.value)}
           style={inputStyle}
         />
+      </div>
+
+      <div style={sectionStyle}>
+        <h2 style={sectionTitle}>Milk Choice</h2>
+        <p style={helperTextStyle}>Choose milk before adding each drink.</p>
+
+        {milkOptions.map((milk) => (
+          <button
+            key={milk.name}
+            onClick={() => setSelectedMilk(milk)}
+            style={{
+              ...milkButtonStyle,
+              backgroundColor:
+                selectedMilk.name === milk.name ? "#d9d9d9" : "#f8f8f8",
+            }}
+          >
+            <span>{milk.name}</span>
+            <span>{milk.price > 0 ? `+$${milk.price.toFixed(2)}` : "$0.00"}</span>
+          </button>
+        ))}
       </div>
 
       <div style={sectionStyle}>
@@ -238,26 +281,26 @@ export default function Home() {
         <h2 style={sectionTitle}>Frappes - 16 oz</h2>
 
         <button
-          onClick={() => addItem("Mocha Frappe - 16 oz", 6.50)}
+          onClick={() => addItem("Mocha Frappe 16 oz", 6.50)}
           style={menuButtonStyle}
         >
-          <span>Mocha Frappe - 16 oz</span>
+          <span>Mocha Frappe 16 oz</span>
           <span>$6.50</span>
         </button>
 
         <button
-          onClick={() => addItem("Caramel Frappe - 16 oz", 6.50)}
+          onClick={() => addItem("Caramel Frappe 16 oz", 6.50)}
           style={menuButtonStyle}
         >
-          <span>Caramel Frappe - 16 oz</span>
+          <span>Caramel Frappe 16 oz</span>
           <span>$6.50</span>
         </button>
 
         <button
-          onClick={() => addItem("Vanilla Frappe - 16 oz", 6.50)}
+          onClick={() => addItem("Vanilla Frappe 16 oz", 6.50)}
           style={menuButtonStyle}
         >
-          <span>Vanilla Frappe - 16 oz</span>
+          <span>Vanilla Frappe 16 oz</span>
           <span>$6.50</span>
         </button>
       </div>
@@ -274,6 +317,7 @@ export default function Home() {
                 <div>
                   {item.quantity} x {item.name}
                 </div>
+
                 <div style={orderRightStyle}>
                   <span>${(item.price * item.quantity).toFixed(2)}</span>
                   <button
@@ -319,6 +363,13 @@ const subtitleStyle: React.CSSProperties = {
   marginBottom: "24px",
 };
 
+const helperTextStyle: React.CSSProperties = {
+  marginTop: "0",
+  marginBottom: "12px",
+  color: "#666",
+  fontSize: "14px",
+};
+
 const sectionStyle: React.CSSProperties = {
   marginBottom: "22px",
   padding: "16px",
@@ -351,6 +402,19 @@ const menuButtonStyle: React.CSSProperties = {
   borderRadius: "8px",
   border: "1px solid #ccc",
   backgroundColor: "#f8f8f8",
+  cursor: "pointer",
+  fontSize: "16px",
+};
+
+const milkButtonStyle: React.CSSProperties = {
+  width: "100%",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: "12px",
+  marginBottom: "10px",
+  borderRadius: "8px",
+  border: "1px solid #ccc",
   cursor: "pointer",
   fontSize: "16px",
 };
@@ -392,7 +456,7 @@ const placeOrderButtonStyle: React.CSSProperties = {
   borderRadius: "8px",
   border: "none",
   backgroundColor: "#222",
-  color: "white",
+  color: "#fff",
   fontSize: "16px",
   cursor: "pointer",
 };
